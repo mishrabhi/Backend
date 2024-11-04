@@ -253,3 +253,93 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 ```
+
+### Segregation of Routes Using Express.Router
+
+- Express.Router is a class provided by Express that creates modular route handlers. It allows you to define routes in separate files or modules, which can then be included in the main application.
+
+- Creating a user router module:
+
+```
+const express = require('express');
+const userRouter = express.Router();
+
+userRouter.get('/profile', (req, res) => {
+    res.send('User Profile');
+});
+
+module.exports = userRouter;
+
+```
+
+- Integrate the router into the main application:
+
+```
+const express = require('express');
+const app = express();
+const userRouter = require('./userRouter');
+
+app.use('/users', userRouter);
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+```
+
+## Middlewares:
+
+- Middleware in Express is a powerful feature that allows you to modify request and response objects, or terminate the request-response cycle. Middleware functions are executed in the order they are defined.
+
+- Middleware functions are functions that have access to the request (req), response (res), and the next function in the request-response cycle. They can perform tasks such as logging, authentication, and error handling.
+
+- Basic logging middleware example:
+
+```
+function logger(req, res, next) {
+    console.log(`${req.method} ${req.url}`);
+    next(); // Pass control to the next middleware function
+}
+
+app.use(logger);
+```
+
+### Inbuilt Middlewares:
+
+- Express comes with several built-in middlewares that simplify common tasks such as parsing request bodies and serving static files.
+
+Using express.json() to parse JSON request bodies:
+
+```
+app.use(express.json());
+```
+
+Using express.static() to serve static files from a directory:
+
+```
+app.use(express.static('public'));
+```
+
+### Application of Middlewares:
+
+- Middleware can be applied at various levels in an Express application, such as globally, to specific routes, or within route files.
+
+Apply middleware globally:
+
+```
+app.use(logger);
+```
+
+Apply middleware to specific routes:
+
+```
+app.get('/secure', authMiddleware, (req, res) => {
+    res.send('Secure data');
+});
+```
+
+Apply middleware within route files:
+
+```
+const userRouter = require('./routes/userRouter');
+app.use('/users', userRouter);
+```
