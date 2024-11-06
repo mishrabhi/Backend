@@ -1,0 +1,46 @@
+Download the data from "employees.json", insert the data either into shell or in mongo and write the following queries:
+
+1. Find the employees with employee_id 25.
+Answer:  db.employees.find( { employee_id:25 } )
+
+2. Find the employees in Department 3.
+Answer: db.employees.find({ department: "Department3" })
+
+3. List all the employees with a salary greater than 55000.
+Answer: db.employees.find({ salary: { $gt: 55000 } })
+
+4. Count the number of employees in Department 1.
+Answer: db.employees.countDocuments({ department: "Department1" })
+
+5. Increase the salary of the employee with employee_id 50 by 5000.
+Answer: db.employees.updateOne({ employee_id: 50 },{ $inc: { salary: 5000 } })
+
+6. Find the employees who joined after 2022-01-15.
+Answer: db.employees.find({ date_joined: { $gt: "2022-01-15" } })
+
+7. Delete the employee with employee_id 10.
+Answer: db.employees.deleteOne({ employee_id: 10 })
+
+8. Find the employee whose last name starts with 'L'.
+Answer: db.employees.find({ last_name: { $regex: /^L/ } })
+
+9. Find all the employees with no manager(manager_id is None).
+Answer: db.employees.find({ manager_id: null })
+
+10. Find all employees who are older than 30.
+Answer: db.employees.find({ age: { $gt: 30 } })
+
+11. Update the department of the employee with employee_id 75 to Department2.
+Answer:db.employees.updateOne( { employee_id: 75 }, { $set: { department: "Department2" } })
+
+12. Find all the employees who email contains 'firstname5'.
+Answer: db.employees.find({ email: { $regex: "firstname5", $options: "i" } })
+
+13. Find all the employees who joined on or before 2022-01-10.
+Answer: db.employees.find({ date_joined: { $lte: "2022-01-10" } })
+
+14. Retrieve all the employees sorted by salary in descending order.
+Answer: db.employees.find().sort({ salary: -1 })
+
+15. Count the number of employees who are in Department4 and have salary above 52000.
+Answer: db.employees.countDocuments({ department: "Department4", salary: { $gt: 52000 } })
