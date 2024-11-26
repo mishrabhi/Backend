@@ -1,8 +1,8 @@
 const express = require("express");
-const Organizer = require("../models/organizer");
-const Event = require("../models/event");
-const Attendee = require("../models/attendee");
-const Registration = require("../models/registration");
+const Organizer = require("../schema/organizer.model");
+const Event = require("../schema/event.model");
+const Attendee = require("../schema/attendee");
+const Registration = require("../schema/registration.model");
 
 const router = express.Router();
 
