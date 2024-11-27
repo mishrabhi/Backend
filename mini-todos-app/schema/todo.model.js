@@ -7,7 +7,7 @@ const TodoSchema = new mongoose.Schema({
   },
   description: String,
   completed: {
-    type: boolean,
+    type: Boolean,
     default: false,
   },
   isPublic: {
