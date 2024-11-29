@@ -1,7 +1,19 @@
 const express = require("express");
 const connect = require("./config/db");
+const cors = require("cors");
+// const bodyParser = require("body-parser");
+const authRoutes = require("./routes/auth.route");
+const productRoutes = require("./routes/product.route");
 
 const app = express();
+
+//Middleware
+app.use(cors());
+app.use(express.json());
+
+//Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 app.listen(1234, async () => {
   await connect();
