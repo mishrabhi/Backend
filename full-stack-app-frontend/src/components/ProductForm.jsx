@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "../context/authContext";
 
 const ProductForm = ({ productId, fetchProducts, closeForm }) => {
   const [formData, setFormData] = useState({
