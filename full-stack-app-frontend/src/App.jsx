@@ -8,6 +8,9 @@ import Navbar from "./components/Navbar.jsx";
 function App() {
   return (
     <>
+      <div className="bg-red-500 text-white text-center p-4">
+        Tailwind CSS is Working!
+      </div>
       <Router>
         <Navbar />
         <Routes>

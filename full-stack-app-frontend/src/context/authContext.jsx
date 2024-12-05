@@ -6,23 +6,31 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     isAuthenticated: false,
     accessToken: null,
+    refreshToken: null,
   });
 
+  // Check for tokens in localStorage when the app mounts
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setAuth({ isAuthenticated: true, accessToken: token });
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (accessToken && refreshToken) {
+      setAuth({ isAuthenticated: true, accessToken, refreshToken });
     }
   }, []);
 
-  const login = (token) => {
-    localStorage.setItem("accessToken", token);
-    setAuth({ isAuthenticated: true, accessToken: token });
+  // Login function to save tokens to localStorage and context state
+  const login = (accessToken, refreshToken) => {
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    setAuth({ isAuthenticated: true, accessToken, refreshToken });
   };
 
+  // Logout function to clear tokens and update context state
   const logout = () => {
     localStorage.removeItem("accessToken");
-    setAuth({ isAuthenticated: false, accessToken: null });
+    localStorage.removeItem("refreshToken");
+    setAuth({ isAuthenticated: false, accessToken: null, refreshToken: null });
   };
 
   return (

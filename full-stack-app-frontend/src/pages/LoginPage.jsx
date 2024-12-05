@@ -9,7 +9,7 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState("");
-  const { setAuth } = useContext(AuthContext);
+  const { login } = useContext(AuthContext); // Use the login function from context
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,20 +18,22 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form Data sent to backend:", credentials);
     try {
       const res = await axios.post(
         "http://localhost:1234/api/auth/login",
         credentials
       );
-      setAuth({
-        accessToken: res.data.accessToken,
-        refreshToken: res.data.refreshToken,
-      });
-      localStorage.setItem("accessToken", res.data.accessToken);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
+      console.log("Backend Response:", res.data);
+
+      // Use login function from AuthContext
+      login(res.data.accessToken, res.data.refreshToken); // Pass both tokens to the login function
+
       setError("");
+      console.log("Navigating to /products");
       navigate("/products");
     } catch (error) {
+      console.error("Login Error:", error);
       setError("Invalid username or password.");
     }
   };
